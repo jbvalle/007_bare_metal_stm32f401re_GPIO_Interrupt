@@ -71,6 +71,26 @@ typedef struct TIMx_t{
     __IO uint32_t TIMx_DMAR;
     __IO uint32_t TIMx_OR;
 }TIMx_t;
+
+typedef struct SYSCFG_t{
+    __IO uint32_t SYSCFG_MEMRMP;
+    __IO uint32_t SYSCFG_PMC;
+    __IO uint32_t SYSCFG_EXTICR1;
+    __IO uint32_t SYSCFG_EXTICR2;
+    __IO uint32_t SYSCFG_EXTICR3;
+    __IO uint32_t SYSCFG_EXTICR4;
+    __IO uint32_t res[2];
+    __IO uint32_t SYSCFG_CMPCR;
+}SYSCFG_t;
+
+typedef struct EXTI_t{
+    __IO uint32_t EXTI_IMR;
+    __IO uint32_t EXTI_EMR;
+    __IO uint32_t EXTI_RTSR;
+    __IO uint32_t EXTI_FTSR;
+    __IO uint32_t EXTI_SWIER;
+    __IO uint32_t EXTI_PR;
+}EXTI_t;
 #endif
 
 
