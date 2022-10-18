@@ -35,7 +35,20 @@ void EXTI15_10_handler(){
     EXTI->EXTI_PR |= (1 << 13);
 }
 
+void global_enable_IRQ(void){
+
+    uint32_t priMASK = 0;
+    __asm volatile("MSR primask, %0":: "r" (priMASK):"memory");
+}
+void global_disable_IRQ(void){
+
+    uint32_t priMASK = 1;
+    __asm volatile("MSR primask, %0":: "r" (priMASK):"memory");
+}
 int main(void){
+
+    /** Global IRQ Disable **/
+    global_disable_IRQ();
 
     /** 1. Enable GPIOA and C **/
     RCC->RCC_AHB1ENR |= 1;
@@ -57,6 +70,10 @@ int main(void){
     SYSCFG->SYSCFG_EXTICR4 |=  (2 << 4);
     /** 5. Enable IRQ40 over NVIC **/
     NVIC->NVIC_ISER[1] |= (1 << (IRQn_EXTI13 % 32));
+
+    /** Global IRQ Enable **/
+    global_enable_IRQ();
+
 
     for(;;);
 }
