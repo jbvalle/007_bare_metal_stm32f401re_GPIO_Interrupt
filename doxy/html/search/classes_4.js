@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timx_5ft_11',['TIMx_t',['../structTIMx__t.html',1,'']]]
+  ['syscfg_5ft_12',['SYSCFG_t',['../structSYSCFG__t.html',1,'']]]
 ];

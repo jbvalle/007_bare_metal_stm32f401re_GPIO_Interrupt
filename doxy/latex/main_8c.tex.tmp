@@ -12,10 +12,13 @@ Include dependency graph for main.\+c\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{main_8c_ab373264d11aa311173017339fbeb687b}{GPIOx\+\_\+\+INIT}} (void)
-\begin{DoxyCompactList}\small\item\em GPIO Initialization for enabling interrupt . \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
-int {\bfseries main} (void)
+\mbox{\Hypertarget{main_8c_aceb3bc2775253042ee88e50750d205ac}\label{main_8c_aceb3bc2775253042ee88e50750d205ac}} 
+void {\bfseries wait\+\_\+ms} (int time)
+\item 
+\mbox{\Hypertarget{main_8c_ae999a56cf3c38704c66385f3124305c8}\label{main_8c_ae999a56cf3c38704c66385f3124305c8}} 
+void {\bfseries EXTI15\+\_\+10\+\_\+handler} ()
+\item 
+int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -34,6 +37,9 @@ int {\bfseries main} (void)
 \item 
 \mbox{\Hypertarget{main_8c_a4f2420ae5376a3db5458b68497ea31fa}\label{main_8c_a4f2420ae5376a3db5458b68497ea31fa}} 
 \mbox{\hyperlink{structEXTI__t}{EXTI\+\_\+t}} $\ast$const {\bfseries EXTI} = (\mbox{\hyperlink{structEXTI__t}{EXTI\+\_\+t}} $\ast$) 0x40013\+C00
+\item 
+\mbox{\Hypertarget{main_8c_a0f952443af56237c01a6340db5ea6ffb}\label{main_8c_a0f952443af56237c01a6340db5ea6ffb}} 
+\mbox{\hyperlink{structNVIC__t}{NVIC\+\_\+t}} $\ast$const {\bfseries NVIC} = (\mbox{\hyperlink{structNVIC__t}{NVIC\+\_\+t}} $\ast$) 0x\+E000\+E100
 \end{DoxyCompactItemize}
 
 
@@ -43,18 +49,22 @@ Entry Point Initialization.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{main_8c_ab373264d11aa311173017339fbeb687b}\label{main_8c_ab373264d11aa311173017339fbeb687b}} 
-\index{main.c@{main.c}!GPIOx\_INIT@{GPIOx\_INIT}}
-\index{GPIOx\_INIT@{GPIOx\_INIT}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{GPIOx\_INIT()}{GPIOx\_INIT()}}
-{\footnotesize\ttfamily void GPIOx\+\_\+\+INIT (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
-
-GPIO Initialization for enabling interrupt . 
-
-Enable GPIOA and C
-
-Set GPIOA as OUTPUT
-
-Set GPIOC as INPUT for IRQ
+\begin{DoxyEnumerate}
+\item Enable GPIOA and C
+\item Set GPIOA as OUTPUT
+\item Set GPIOC as INPUT for IRQ
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Enable SYSCFG Controller
+\item Unmask Interrupt Line 13
+\item Configure Trigger Selection , disable rising edge, enable falling edge
+\item Configure EXTI Multiplexer PC13
+\item Enable IRQ over NVIC
+\end{DoxyEnumerate}

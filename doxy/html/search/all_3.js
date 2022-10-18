@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rcc_5ft_4',['RCC_t',['../structRCC__t.html',1,'']]]
+  ['nvic_5ft_4',['NVIC_t',['../structNVIC__t.html',1,'']]]
 ];

@@ -85,11 +85,13 @@ Include dependency graph for main.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab373264d11aa311173017339fbeb687b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ab373264d11aa311173017339fbeb687b">GPIOx_INIT</a> (void)</td></tr>
-<tr class="memdesc:ab373264d11aa311173017339fbeb687b"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Initialization for enabling interrupt .  <a href="main_8c.html#ab373264d11aa311173017339fbeb687b">More...</a><br /></td></tr>
-<tr class="separator:ab373264d11aa311173017339fbeb687b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
+<tr class="memitem:aceb3bc2775253042ee88e50750d205ac"><td class="memItemLeft" align="right" valign="top"><a id="aceb3bc2775253042ee88e50750d205ac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wait_ms</b> (int time)</td></tr>
+<tr class="separator:aceb3bc2775253042ee88e50750d205ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae999a56cf3c38704c66385f3124305c8"><td class="memItemLeft" align="right" valign="top"><a id="ae999a56cf3c38704c66385f3124305c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI15_10_handler</b> ()</td></tr>
+<tr class="separator:ae999a56cf3c38704c66385f3124305c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -109,18 +111,21 @@ Variables</h2></td></tr>
 <tr class="memitem:a4f2420ae5376a3db5458b68497ea31fa"><td class="memItemLeft" align="right" valign="top"><a id="a4f2420ae5376a3db5458b68497ea31fa"></a>
 <a class="el" href="structEXTI__t.html">EXTI_t</a> *const&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI</b> = (<a class="el" href="structEXTI__t.html">EXTI_t</a> *) 0x40013C00</td></tr>
 <tr class="separator:a4f2420ae5376a3db5458b68497ea31fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f952443af56237c01a6340db5ea6ffb"><td class="memItemLeft" align="right" valign="top"><a id="a0f952443af56237c01a6340db5ea6ffb"></a>
+<a class="el" href="structNVIC__t.html">NVIC_t</a> *const&#160;</td><td class="memItemRight" valign="bottom"><b>NVIC</b> = (<a class="el" href="structNVIC__t.html">NVIC_t</a> *) 0xE000E100</td></tr>
+<tr class="separator:a0f952443af56237c01a6340db5ea6ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Entry Point Initialization. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab373264d11aa311173017339fbeb687b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab373264d11aa311173017339fbeb687b">&#9670;&nbsp;</a></span>GPIOx_INIT()</h2>
+<a id="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&nbsp;</a></span>main()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GPIOx_INIT </td>
+          <td class="memname">int main </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -128,11 +133,18 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>GPIO Initialization for enabling interrupt . </p>
-<p>Enable GPIOA and C</p>
-<p>Set GPIOA as OUTPUT</p>
-<p>Set GPIOC as INPUT for IRQ</p>
+<ol type="1">
+<li>Enable GPIOA and C</li>
+<li>Set GPIOA as OUTPUT</li>
+<li>Set GPIOC as INPUT for IRQ</li>
+</ol>
+<ol type="1">
+<li>Enable SYSCFG Controller</li>
+<li>Unmask Interrupt Line 13</li>
+<li>Configure Trigger Selection , disable rising edge, enable falling edge</li>
+<li>Configure EXTI Multiplexer PC13</li>
+<li>Enable IRQ over NVIC</li>
+</ol>
 
 </div>
 </div>
