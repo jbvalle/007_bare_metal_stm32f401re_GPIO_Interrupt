@@ -1,12 +1,16 @@
 #include <stdint.h>
+#include "peripherals.h"
 
 /** Initialize Global Variables **/
-extern const volatile uint32_t __estack;
-extern uint32_t __etext;
-extern uint32_t __sdata;
-extern uint32_t __edata;
-extern uint32_t __sbss;
-extern uint32_t __ebss;
+extern uint32_t  __estack;
+extern uint32_t  __etext;
+extern uint32_t  __sdata;
+extern uint32_t  __edata;
+extern uint32_t  __sbss;
+extern uint32_t  __ebss;
+
+RCC_t       * const RCCx     = (RCC_t    *)  0x40023800;
+GPIOx_t     * const GPIOAx   = (GPIOx_t  *)  0x40020000;
 
 /** Initialize Prototypes **/
 extern int main(void);
@@ -116,10 +120,15 @@ void (* const fpn_vector[])(void) = {
     DMA1_Stream5_handler,
     DMA1_Stream6_handler,
     ADC_handler,
+    0,
+    0,
+    0,
+    0,
     EXTI9_5__handler,
     TIM1_BRK_TIM9_handler,
     TIM1_UP_TIM10_handler,
     TIM1_TRG_COM_TIM11_handler,
+    TIM1_CC_handler,
     TIM2_handler,
     TIM3_handler,
     TIM4_handler,
@@ -131,17 +140,34 @@ void (* const fpn_vector[])(void) = {
     SPI2_handler,
     UART1_handler,
     UART2_handler,
+    0,
+    EXTI15_10_handler,
     EXTI17_RTC_Alarm_handler,
     EXTI18_OTG_FS_WKUP_handler,
+    0,
+    0,
+    0,
+    0,
     DMA1_Stream7_handler,
+    0,
     SDIO_handler,
     TIM5_handler,
     SPI3_handler,
+    0,
+    0,
+    0,
+    0,
     DMA2_Stream0_handler,
     DMA2_Stream1_handler,
     DMA2_Stream2_handler,
     DMA2_Stream3_handler,
     DMA2_Stream4_handler,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     OTG_FS_handler,
     DMA2_Stream5_handler,
     DMA2_Stream6_handler,
@@ -149,34 +175,48 @@ void (* const fpn_vector[])(void) = {
     UART6_handler,
     I2C3_EV_handler,
     I2C3_ER_handler,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     FPU_handler,
+    0,
+    0,
     SPI4_handler
 };
 
-void Reset_handler(void){
-
-    /*== 1. Copy Data from Flash to SRAM ==*/
-    uint32_t *pSrc = (uint32_t *)(&__etext);
-    uint32_t *pDst = (uint32_t *)(&__sdata);
-    uint32_t size = (uint32_t)&__edata - (uint32_t)&__sdata;
-
-    for(uint32_t i = 0; i < size; i++){
-
-        *pDst++ = *pSrc++;
-    }
-    /*== 2. Init BSS Section with Zero ==*/
-    size = (uint32_t)&__ebss - (uint32_t)&__sbss;
-    pSrc = (uint32_t *)(&__sbss);
-
-    for(uint32_t i = 0; i < size; i++){
-
-        *pSrc++ = 0;
-    }
-    /*== 3. Call main() ==*/
-    main();
-}
 
 void Default_handler(void){
 
     for(;;);
 }
+
+void Reset_handler(void){
+
+    /*== 1. Copy Data from Flash to SRAM ==*/
+    uint32_t *pSrc = (uint32_t *)&__etext;
+    uint32_t *pDst = (uint32_t *)&__sdata;
+    uint32_t size = (uint32_t)&__edata - (uint32_t)&__sdata;
+
+    for(uint32_t i = 0; i < size; i++){
+
+        *(pDst++) = *(pSrc++);
+    }
+    /*== 2. Init BSS Section with Zero ==*/
+    size = (uint32_t)&__ebss - (uint32_t)&__sbss;
+    pDst = (uint32_t *)&__sbss;
+
+    for(uint32_t *bss_ptr = (uint32_t *)&__sbss; bss_ptr < &__ebss;){
+
+        *(bss_ptr++) = 0;
+    }
+    /*== 3. Call main() ==*/
+    main();
+
+    /** Infinite Loop incase main returns **/
+    for(;;);
+}
+

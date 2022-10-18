@@ -91,6 +91,16 @@ typedef struct EXTI_t{
     __IO uint32_t EXTI_SWIER;
     __IO uint32_t EXTI_PR;
 }EXTI_t;
+
+typedef struct NVIC_t{
+    __IO uint32_t NVIC_ISER[8];
+    __IO uint32_t NVIC_ICER[8];
+    __IO uint32_t NVIC_ISPR[8];
+    __IO uint32_t NVIC_ICPR[8];
+    __IO uint32_t NVIC_IABR[8];
+    __IO uint32_t NVIC_IPR[8];
+    __IO uint32_t NVIC_STIR;
+}NVIC_t;
 #endif
 
 

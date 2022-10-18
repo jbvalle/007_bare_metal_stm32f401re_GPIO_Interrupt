@@ -55,7 +55,16 @@ mk_objdir:
 mk_debdir:
 	mkdir -p $(DEB_DIR)
 
+update_doc:
+	cd doxy && doxygen Doxyfile
+
+debug: FORCE
+	openocd -f /usr/share/openocd/scripts/interface/stlink-v2.cfg -f /usr/share/openocd/scripts/target/stm32f4x.cfg &
+	gdb-multiarch $(TARGET) -x $(SUP_DIR)/debug.gdb
+
 clean:
 	rm -rf $(SRC_DIR)/$(OBJ_DIR) $(DEB_DIR)
 
-.PHONY = flash mk_debdir mk_objdir clean
+FORCE:
+
+.PHONY = flash mk_debdir mk_objdir clean update_doc debug FORCE

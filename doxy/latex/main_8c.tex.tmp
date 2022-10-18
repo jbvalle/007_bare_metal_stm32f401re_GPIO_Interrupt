@@ -1,0 +1,60 @@
+\hypertarget{main_8c}{}\doxysection{/home/strayker/\+Coding/040\+\_\+bare\+\_\+metal\+\_\+stm32f401re\+\_\+gpio\+\_\+interrupt/src/main.c File Reference}
+\label{main_8c}\index{/home/strayker/Coding/040\_bare\_metal\_stm32f401re\_gpio\_interrupt/src/main.c@{/home/strayker/Coding/040\_bare\_metal\_stm32f401re\_gpio\_interrupt/src/main.c}}
+
+
+Entry Point Initialization.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}peripherals.\+h\char`\"{}}\newline
+Include dependency graph for main.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_ab373264d11aa311173017339fbeb687b}{GPIOx\+\_\+\+INIT}} (void)
+\begin{DoxyCompactList}\small\item\em GPIO Initialization for enabling interrupt . \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+int {\bfseries main} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8c_ab0692989b46b41afd73497b4d80caee4}\label{main_8c_ab0692989b46b41afd73497b4d80caee4}} 
+\mbox{\hyperlink{structRCC__t}{RCC\+\_\+t}} $\ast$const {\bfseries RCC} = (\mbox{\hyperlink{structRCC__t}{RCC\+\_\+t}} $\ast$) 0x40023800
+\item 
+\mbox{\Hypertarget{main_8c_acb74c8d61b9a6afd4b6408d322e45fc4}\label{main_8c_acb74c8d61b9a6afd4b6408d322e45fc4}} 
+\mbox{\hyperlink{structGPIOx__t}{GPIOx\+\_\+t}} $\ast$const {\bfseries GPIOA} = (\mbox{\hyperlink{structGPIOx__t}{GPIOx\+\_\+t}} $\ast$) 0x40020000
+\item 
+\mbox{\Hypertarget{main_8c_abf0e6d0a4e79360ec661a545f0651aa0}\label{main_8c_abf0e6d0a4e79360ec661a545f0651aa0}} 
+\mbox{\hyperlink{structGPIOx__t}{GPIOx\+\_\+t}} $\ast$const {\bfseries GPIOC} = (\mbox{\hyperlink{structGPIOx__t}{GPIOx\+\_\+t}} $\ast$) 0x40020800
+\item 
+\mbox{\Hypertarget{main_8c_abddab6fd55f406c9bb3e0c759694715a}\label{main_8c_abddab6fd55f406c9bb3e0c759694715a}} 
+\mbox{\hyperlink{structSYSCFG__t}{SYSCFG\+\_\+t}} $\ast$const {\bfseries SYSCFG} = (\mbox{\hyperlink{structSYSCFG__t}{SYSCFG\+\_\+t}} $\ast$) 0x40013800
+\item 
+\mbox{\Hypertarget{main_8c_a4f2420ae5376a3db5458b68497ea31fa}\label{main_8c_a4f2420ae5376a3db5458b68497ea31fa}} 
+\mbox{\hyperlink{structEXTI__t}{EXTI\+\_\+t}} $\ast$const {\bfseries EXTI} = (\mbox{\hyperlink{structEXTI__t}{EXTI\+\_\+t}} $\ast$) 0x40013\+C00
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Entry Point Initialization. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8c_ab373264d11aa311173017339fbeb687b}\label{main_8c_ab373264d11aa311173017339fbeb687b}} 
+\index{main.c@{main.c}!GPIOx\_INIT@{GPIOx\_INIT}}
+\index{GPIOx\_INIT@{GPIOx\_INIT}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{GPIOx\_INIT()}{GPIOx\_INIT()}}
+{\footnotesize\ttfamily void GPIOx\+\_\+\+INIT (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+GPIO Initialization for enabling interrupt . 
+
+Enable GPIOA and C
+
+Set GPIOA as OUTPUT
+
+Set GPIOC as INPUT for IRQ

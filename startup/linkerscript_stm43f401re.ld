@@ -7,36 +7,32 @@ __estack = 0x20000000 + 96K;
 /** Define Memory **/
 MEMORY
 {
-    SRAM (rwx) : ORIGIN = 0x20000000, LENGTH = 96K
     FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 512K
+    SRAM (xrw) : ORIGIN = 0x20000000, LENGTH = 96K
 }
 
 /** Define Output Memory Sections **/
 SECTIONS
 {
-    .isr_vector :
-    {
-        . = ALIGN(4);
-        *(.isr_vector)
-        . = ALIGN(4);
-    }> SRAM
 
     .text :
     {
         . = ALIGN(4);
+        KEEP(*(.isr_vector))
         *(.text)
         *(.rodata)
-        *(.rodata.*)
+        *(.rodata*)
         . = ALIGN(4);
-        __etext = .;
     }> FLASH
 
+
+    __etext = LOADADDR(.data);
     .data :
     {
         . = ALIGN(4);
         __sdata = .;
         *(.data)
-        *(.data.*)
+        *(.data*)
         . = ALIGN(4);
         __edata = .;
     }> SRAM AT> FLASH
@@ -46,6 +42,7 @@ SECTIONS
         . = ALIGN(4);
         __sbss = .;
         *(.bss)
+        *(.bss*)
         *(COMMON)
         . = ALIGN(4);
         __ebss = .;
